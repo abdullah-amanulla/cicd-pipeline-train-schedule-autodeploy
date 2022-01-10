@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                branch "master"
+                (BRANCH_NAME != 'master')
             }
             steps {
                 script {
@@ -40,7 +40,7 @@ pipeline {
         }
         stage('CanaryDeploy') {
             when {
-                branch "master"
+                (BRANCH_NAME != 'master')
             }
             environment { 
                 CANARY_REPLICAS = 1
