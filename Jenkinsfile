@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                 branch "master"
+                 expression { env.gitlabBranch == 'master' }
             }
             steps {
                 script {
