@@ -14,6 +14,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
+                beforeAgent true
                 branch 'master'
             }
             steps {
@@ -27,6 +28,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
+                beforeAgent true
                 branch 'master'
             }
             steps {
@@ -40,6 +42,7 @@ pipeline {
         }
         stage('CanaryDeploy') {
             when {
+                beforeAgent true
                 branch 'master'
             }
             environment { 
@@ -55,6 +58,7 @@ pipeline {
         }
         stage('DeployToProduction') {
             when {
+                beforeAgent true
                 branch 'master'
             }
             environment { 
