@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                 expression { env.gitlabBranch != 'master' }
+                 branch 'master'
             }
             steps {
                 script {
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                expression { env.gitlabBranch != 'master' }
+                branch 'master'
             }
             steps {
                 script {
@@ -40,7 +40,7 @@ pipeline {
         }
         stage('CanaryDeploy') {
             when {
-                expression { env.gitlabBranch != 'master' }
+                branch 'master'
             }
             environment { 
                 CANARY_REPLICAS = 1
@@ -55,7 +55,7 @@ pipeline {
         }
         stage('DeployToProduction') {
             when {
-                expression { env.gitlabBranch != 'master' }
+                branch 'master'
             }
             environment { 
                 CANARY_REPLICAS = 0
