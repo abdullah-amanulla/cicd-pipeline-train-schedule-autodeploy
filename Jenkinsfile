@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                    docker.withRegistry('https://hub.docker.com/repository/docker/abdullahamanulla/train-schedule', 'The1inme!!') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
