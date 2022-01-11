@@ -18,7 +18,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = sudo docker.build(DOCKER_IMAGE_NAME)
+                    app = sudo docker.build(DOCKER_IMAGE_NAME) -privileged
                     app.inside {
                         sh 'echo Hello, World!'
                     }
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                branch "master"
+                expression { env.gitlabBranch != 'master' }
             }
             steps {
                 script {
@@ -40,7 +40,7 @@ pipeline {
         }
         stage('CanaryDeploy') {
             when {
-                branch "master"
+                expression { env.gitlabBranch != 'master' }
             }
             environment { 
                 CANARY_REPLICAS = 1
@@ -55,7 +55,7 @@ pipeline {
         }
         stage('DeployToProduction') {
             when {
-                branch "master"
+                expression { env.gitlabBranch != 'master' }
             }
             environment { 
                 CANARY_REPLICAS = 0
